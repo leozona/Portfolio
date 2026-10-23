@@ -159,7 +159,7 @@
 
                 <!-- Action Button -->
                 <div class="hidden md:flex items-center">
-                    <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-2">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aizenhassann@gmail.com&su=استفسار%20عن%20تصميم%20موقع" target="_blank" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-2">
                         <i class="fa-solid fa-envelope text-base"></i> راسلني عبر Gmail
                     </a>
                 </div>
@@ -179,7 +179,7 @@
                 <a href="#portfolio" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">معرض الأعمال</a>
                 <a href="#workflow" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">طريقة العمل</a>
                 <a href="#contact" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">تواصل معي</a>
-                <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onclick="playClickSound()" class="bg-limeAccent text-charcoal-900 text-center font-bold py-3 rounded-xl mt-2 flex items-center justify-center gap-2">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aizenhassann@gmail.com&su=استفسار%20عن%20تصميم%20موقع" target="_blank" onclick="playClickSound()" class="bg-limeAccent text-charcoal-900 text-center font-bold py-3 rounded-xl mt-2 flex items-center justify-center gap-2">
                     <i class="fa-solid fa-envelope"></i> راسلني عبر Gmail
                 </a>
             </nav>
@@ -210,7 +210,7 @@
                         <span>تصفح نماذج الأعمال</span>
                         <i class="fa-solid fa-arrow-left text-sm"></i>
                     </a>
-                    <a href="mailto:aizenhassann@gmail.com?subject=طلب%20مشروع%20جديد" onmouseenter="playHoverSound()" onclick="playClickSound()" class="border border-charcoal-600 hover:border-limeAccent text-gray-200 hover:text-white px-8 py-4 rounded-xl text-center transition-all hover:-translate-y-1 flex items-center justify-center gap-2 backdrop-blur-sm">
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aizenhassann@gmail.com&su=طلب%20مشروع%20جديد" target="_blank" onmouseenter="playHoverSound()" onclick="playClickSound()" class="border border-charcoal-600 hover:border-limeAccent text-gray-200 hover:text-white px-8 py-4 rounded-xl text-center transition-all hover:-translate-y-1 flex items-center justify-center gap-2 backdrop-blur-sm">
                         <i class="fa-solid fa-envelope text-lg text-limeAccent"></i>
                         <span>طلب مشروع جديد</span>
                     </a>
@@ -390,7 +390,7 @@
             </p>
 
             <div class="pt-4 flex flex-col items-center justify-center gap-4">
-                <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-10 py-5 rounded-2xl text-lg transition-all shadow-xl hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-3">
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=aizenhassann@gmail.com&su=استفسار%20عن%20تصميم%20موقع" target="_blank" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-10 py-5 rounded-2xl text-lg transition-all shadow-xl hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-3">
                     <i class="fa-solid fa-envelope text-2xl"></i>
                     <span>راسلني عبر Gmail مباشرة</span>
                 </a>
@@ -415,7 +415,7 @@
             menu.classList.toggle('hidden');
         }
 
-        // Web Audio API Sound Synthesizer (No external MP3 files needed)
+        // Web Audio API Sound Synthesizer
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         let audioCtx;
 
@@ -425,7 +425,7 @@
             }
         }
 
-        // Subtle Hover Sound Effect
+        // Hover Sound Effect
         function playHoverSound() {
             try {
                 initAudio();
@@ -444,12 +444,10 @@
 
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.05);
-            } catch (e) {
-                // Audio Context safeguard
-            }
+            } catch (e) {}
         }
 
-        // Soft Click Sound Effect
+        // Click Sound Effect
         function playClickSound() {
             try {
                 initAudio();
@@ -468,9 +466,7 @@
 
                 osc.start();
                 osc.stop(audioCtx.currentTime + 0.08);
-            } catch (e) {
-                // Audio Context safeguard
-            }
+            } catch (e) {}
         }
     </script>
 </body>
