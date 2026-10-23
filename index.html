@@ -23,10 +23,10 @@
                 extend: {
                     colors: {
                         charcoal: {
-                            900: '#0F1215',
-                            800: '#161B22',
-                            700: '#21262D',
-                            600: '#30363D'
+                            900: '#0B0D0F',
+                            800: '#12161A',
+                            700: '#1C2127',
+                            600: '#2A313A'
                         },
                         limeAccent: {
                             DEFAULT: '#CCFF00',
@@ -45,18 +45,67 @@
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #0F1215;
+            background-color: #0B0D0F;
             color: #F0F6FC;
+            overflow-x: hidden;
+        }
+
+        /* Animated Grid Background */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
+        }
+
+        /* Floating Background Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: floatOrb 12s ease-in-out infinite alternate;
+        }
+
+        .orb-lime {
+            background: #CCFF00;
+            width: 350px;
+            height: 350px;
+        }
+
+        .orb-blue {
+            background: #00E5FF;
+            width: 400px;
+            height: 400px;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, -40px) scale(1.1); }
+            100% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Glassmorphism Header */
+        .glass-header {
+            background: rgba(18, 22, 26, 0.75);
+            backdrop-filter: blur(16px);
+        }
+
+        .lime-border-glow {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .lime-border-glow:hover {
-            box-shadow: 0 0 25px rgba(204, 255, 0, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(204, 255, 0, 0.25);
             border-color: #CCFF00;
-        }
-
-        .glass-header {
-            background: rgba(22, 27, 34, 0.85);
-            backdrop-filter: blur(12px);
+            transform: translateY(-4px);
         }
 
         .gradient-text {
@@ -64,18 +113,33 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Float Card Subtle Animation */
+        .float-card {
+            animation: floatCard 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-8px); }
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-limeAccent selection:text-charcoal-900">
+<body class="antialiased selection:bg-limeAccent selection:text-charcoal-900 bg-grid-pattern relative">
+
+    <!-- Animated Ambient Background Orbs -->
+    <div class="orb orb-lime top-10 right-10"></div>
+    <div class="orb orb-blue top-1/2 left-5" style="animation-delay: -4s;"></div>
+    <div class="orb orb-lime bottom-20 right-1/3" style="animation-delay: -7s;"></div>
 
     <!-- Navigation Header -->
-    <header class="fixed top-0 w-full z-50 glass-header border-b border-charcoal-700 transition-all duration-300">
+    <header class="fixed top-0 w-full z-50 glass-header border-b border-charcoal-700/60 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="flex items-center justify-between h-20">
                 
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-limeAccent text-charcoal-900 font-extrabold text-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+                <a href="#" onclick="playClickSound()" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-limeAccent text-charcoal-900 font-extrabold text-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
                         حـ
                     </div>
                     <div>
@@ -86,51 +150,49 @@
 
                 <!-- Desktop Navigation Links -->
                 <nav class="hidden md:flex items-center gap-8 font-semibold text-sm text-gray-300">
-                    <a href="#hero" class="hover:text-limeAccent transition-colors">الرئيسية</a>
-                    <a href="#services" class="hover:text-limeAccent transition-colors">الخدمات</a>
-                    <a href="#portfolio" class="hover:text-limeAccent transition-colors">معرض الأعمال</a>
-                    <a href="#workflow" class="hover:text-limeAccent transition-colors">طريقة العمل</a>
-                    <a href="#contact" class="hover:text-limeAccent transition-colors">تواصل معي</a>
+                    <a href="#hero" onmouseenter="playHoverSound()" onclick="playClickSound()" class="hover:text-limeAccent transition-colors">الرئيسية</a>
+                    <a href="#services" onmouseenter="playHoverSound()" onclick="playClickSound()" class="hover:text-limeAccent transition-colors">الخدمات</a>
+                    <a href="#portfolio" onmouseenter="playHoverSound()" onclick="playClickSound()" class="hover:text-limeAccent transition-colors">معرض الأعمال</a>
+                    <a href="#workflow" onmouseenter="playHoverSound()" onclick="playClickSound()" class="hover:text-limeAccent transition-colors">طريقة العمل</a>
+                    <a href="#contact" onmouseenter="playHoverSound()" onclick="playClickSound()" class="hover:text-limeAccent transition-colors">تواصل معي</a>
                 </nav>
 
                 <!-- Action Button -->
                 <div class="hidden md:flex items-center">
-                    <!-- PLACEHOLDER_WHATSAPP_LINK -->
-                    <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%B3%D9%86%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9" target="_blank" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md hover:shadow-limeAccent/20">
-                        <i class="fa-brands fa-whatsapp text-base ml-1.5"></i> تواصل عبر واتساب
+                    <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all shadow-md hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-2">
+                        <i class="fa-solid fa-envelope text-base"></i> راسلني عبر Gmail
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-2xl text-gray-300 hover:text-limeAccent focus:outline-none">
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu(); playClickSound();" class="md:hidden text-2xl text-gray-300 hover:text-limeAccent focus:outline-none">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Navigation Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden bg-charcoal-800 border-b border-charcoal-700 px-6 py-6">
+        <div id="mobile-menu" class="hidden md:hidden bg-charcoal-800/95 border-b border-charcoal-700 px-6 py-6 backdrop-blur-md">
             <nav class="flex flex-col gap-4 font-semibold text-gray-300">
-                <a href="#hero" onclick="toggleMobileMenu()" class="hover:text-limeAccent transition-colors py-1">الرئيسية</a>
-                <a href="#services" onclick="toggleMobileMenu()" class="hover:text-limeAccent transition-colors py-1">الخدمات</a>
-                <a href="#portfolio" onclick="toggleMobileMenu()" class="hover:text-limeAccent transition-colors py-1">معرض الأعمال</a>
-                <a href="#workflow" onclick="toggleMobileMenu()" class="hover:text-limeAccent transition-colors py-1">طريقة العمل</a>
-                <a href="#contact" onclick="toggleMobileMenu()" class="hover:text-limeAccent transition-colors py-1">تواصل معي</a>
-                <!-- PLACEHOLDER_WHATSAPP_LINK -->
-                <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%B3%D9%86%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9" target="_blank" class="bg-limeAccent text-charcoal-900 text-center font-bold py-3 rounded-xl mt-2">
-                    تواصل عبر واتساب
+                <a href="#hero" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">الرئيسية</a>
+                <a href="#services" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">الخدمات</a>
+                <a href="#portfolio" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">معرض الأعمال</a>
+                <a href="#workflow" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">طريقة العمل</a>
+                <a href="#contact" onclick="toggleMobileMenu(); playClickSound();" class="hover:text-limeAccent transition-colors py-1">تواصل معي</a>
+                <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onclick="playClickSound()" class="bg-limeAccent text-charcoal-900 text-center font-bold py-3 rounded-xl mt-2 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-envelope"></i> راسلني عبر Gmail
                 </a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden bg-gradient-to-b from-charcoal-900 via-charcoal-800 to-charcoal-900">
+    <section id="hero" class="min-h-screen pt-32 pb-20 flex items-center relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full relative z-10">
             <div class="max-w-3xl space-y-8">
                 
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-charcoal-700/60 border border-limeAccent/30 text-limeAccent text-xs font-bold tracking-wide">
-                    <span class="w-2 h-2 rounded-full bg-limeAccent animate-pulse"></span>
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-charcoal-800/80 border border-limeAccent/30 text-limeAccent text-xs font-bold tracking-wide backdrop-blur-md float-card">
+                    <span class="w-2.5 h-2.5 rounded-full bg-limeAccent animate-ping"></span>
                     تصميم مواقع حديثة مدعومة بأدوات الذكاء الاصطناعي
                 </div>
 
@@ -144,13 +206,12 @@
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                    <a href="#portfolio" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-8 py-4 rounded-xl text-center transition-all shadow-lg hover:shadow-limeAccent/20 flex items-center justify-center gap-2">
+                    <a href="#portfolio" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-8 py-4 rounded-xl text-center transition-all shadow-lg hover:shadow-limeAccent/30 hover:-translate-y-1 flex items-center justify-center gap-2">
                         <span>تصفح نماذج الأعمال</span>
                         <i class="fa-solid fa-arrow-left text-sm"></i>
                     </a>
-                    <!-- PLACEHOLDER_WHATSAPP_LINK -->
-                    <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%B3%D9%86%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D9%85%D8%B9%D9%83%20%D9%84%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9" target="_blank" class="border border-charcoal-600 hover:border-limeAccent text-gray-200 hover:text-white px-8 py-4 rounded-xl text-center transition-all flex items-center justify-center gap-2">
-                        <i class="fa-brands fa-whatsapp text-lg text-emerald-400"></i>
+                    <a href="mailto:aizenhassann@gmail.com?subject=طلب%20مشروع%20جديد" onmouseenter="playHoverSound()" onclick="playClickSound()" class="border border-charcoal-600 hover:border-limeAccent text-gray-200 hover:text-white px-8 py-4 rounded-xl text-center transition-all hover:-translate-y-1 flex items-center justify-center gap-2 backdrop-blur-sm">
+                        <i class="fa-solid fa-envelope text-lg text-limeAccent"></i>
                         <span>طلب مشروع جديد</span>
                     </a>
                 </div>
@@ -160,7 +221,7 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-24 bg-charcoal-800 border-y border-charcoal-700">
+    <section id="services" class="py-24 bg-charcoal-800/60 border-y border-charcoal-700/60 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
@@ -172,31 +233,31 @@
             <div class="grid md:grid-cols-3 gap-8">
                 
                 <!-- Service 1 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
                     <div class="space-y-4">
-                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700">
+                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700 shadow-inner">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">مواقع المطاعم</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">تنسيق القائمة وقوائم الطعام التفاعلية، تصنيفات الأطباق، وسلة طلبات مباشرة ترتبط بتطبيق الواتساب للتسهيل على العملاء.</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">تنسيق القائمة وقوائم الطعام التفاعلية، تصنيفات الأطباق، وسلة طلبات تفاعلية ومجهزة للتسهيل على العملاء.</p>
                     </div>
                 </div>
 
                 <!-- Service 2 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
                     <div class="space-y-4">
-                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700">
+                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700 shadow-inner">
                             <i class="fa-solid fa-mug-hot"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">مواقع الكافيهات والمقاهي</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed">تصاميم دافئة بأسلوب عصري تستعرض المشروبات والحلويات، مع دعم التصميم المتجاوب للعمل بشكل ممتاز على جميع الهواتف الذكية.</p>
+                        <p class="text-gray-400 text-sm leading-relaxed">تصاميم دافئة بأسلوب عصري تستعرض المشروبات والمخبوزات، مع دعم التصميم المتجاوب للعمل بشكل ممتاز على جميع الهواتف الذكية.</p>
                     </div>
                 </div>
 
                 <!-- Service 3 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-8 rounded-2xl transition-all duration-300 lime-border-glow flex flex-col justify-between">
                     <div class="space-y-4">
-                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700">
+                        <div class="w-14 h-14 rounded-xl bg-charcoal-800 text-limeAccent flex items-center justify-center text-2xl border border-charcoal-700 shadow-inner">
                             <i class="fa-solid fa-laptop-code"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white">صفحات الهبوط (Landing Pages)</h3>
@@ -209,7 +270,7 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24 bg-charcoal-900">
+    <section id="portfolio" class="py-24">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
@@ -221,24 +282,22 @@
             <div class="grid md:grid-cols-2 gap-8">
                 
                 <!-- Project Card 1: Dar El Mathaq -->
-                <div class="bg-charcoal-800 border border-charcoal-700 rounded-2xl overflow-hidden transition-all duration-300 lime-border-glow flex flex-col">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-800/80 border border-charcoal-700 rounded-2xl overflow-hidden transition-all duration-300 lime-border-glow flex flex-col group">
                     <div class="relative h-64 overflow-hidden border-b border-charcoal-700 bg-charcoal-900">
-                        <!-- Card Image -->
-                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="معاينة موقع دار المذاق" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="معاينة موقع دار المذاق" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <span class="absolute top-4 right-4 bg-charcoal-900/90 text-limeAccent border border-limeAccent/30 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md">
                             نموذج تجريبي (Demo)
                         </span>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between space-y-6">
                         <div class="space-y-3">
-                            <h3 class="text-2xl font-bold text-white">مطعم دار المذاق</h3>
+                            <h3 class="text-2xl font-bold text-white group-hover:text-limeAccent transition-colors">مطعم دار المذاق</h3>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                موقع مطعم مصري فاخر يدعم الواجهة العربية الكاملة (RTL)، يحتوي على قائمة طعام تفاعلية مع فلترة التصنيفات وسلة شراء مجهزة لإرسال التجميعات عبر واتساب.
+                                موقع مطعم مصري فاخر يدعم الواجهة العربية الكاملة (RTL)، يحتوي على قائمة طعام تفاعلية مع فلترة التصنيفات وسلة شراء مجهزة بعرض التجميعات للطلبات.
                             </p>
                         </div>
                         <div>
-                            <!-- PLACEHOLDER_PROJECT_1_LIVE_DEMO -->
-                            <a href="https://leozona.github.io/dar-elmathaq/" target="_blank" class="inline-flex items-center gap-2 text-limeAccent hover:text-white font-bold text-sm transition-colors">
+                            <a href="https://leozona.github.io/dar-elmathaq/" target="_blank" onclick="playClickSound()" class="inline-flex items-center gap-2 text-limeAccent hover:text-white font-bold text-sm transition-colors">
                                 <span>معاينة الموقع المباشر</span>
                                 <i class="fa-solid fa-up-right-from-square text-xs"></i>
                             </a>
@@ -247,24 +306,22 @@
                 </div>
 
                 <!-- Project Card 2: Espresso Cafe -->
-                <div class="bg-charcoal-800 border border-charcoal-700 rounded-2xl overflow-hidden transition-all duration-300 lime-border-glow flex flex-col">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-800/80 border border-charcoal-700 rounded-2xl overflow-hidden transition-all duration-300 lime-border-glow flex flex-col group">
                     <div class="relative h-64 overflow-hidden border-b border-charcoal-700 bg-charcoal-900">
-                        <!-- Card Image -->
-                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="معاينة موقع اسبريسو كافيه" class="w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="معاينة موقع اسبريسو كافيه" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                         <span class="absolute top-4 right-4 bg-charcoal-900/90 text-limeAccent border border-limeAccent/30 text-xs font-bold px-3 py-1.5 rounded-full backdrop-blur-md">
                             نموذج تجريبي (Demo)
                         </span>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between space-y-6">
                         <div class="space-y-3">
-                            <h3 class="text-2xl font-bold text-white">اسبريسو كافيه (Espresso Cafe)</h3>
+                            <h3 class="text-2xl font-bold text-white group-hover:text-limeAccent transition-colors">اسبريسو كافيه (Espresso Cafe)</h3>
                             <p class="text-gray-400 text-sm leading-relaxed">
-                                موقع تعريفي لكافيه عصري يبرز قائمة المشروبات والمخبوزات ضمن واجهة هادئة ومريحة للمستخدم مع خيارات التواصل والحجز المباشر.
+                                موقع تعريفي لكافيه عصري يبرز قائمة المشروبات والمخبوزات ضمن واجهة هادئة ومريحة للمستخدم مع خيارات التواصل المباشر.
                             </p>
                         </div>
                         <div>
-                            <!-- PLACEHOLDER_PROJECT_2_LIVE_DEMO -->
-                            <a href="https://leozona.github.io/espresso-cafe/" target="_blank" class="inline-flex items-center gap-2 text-limeAccent hover:text-white font-bold text-sm transition-colors">
+                            <a href="https://leozona.github.io/espresso-cafe/" target="_blank" onclick="playClickSound()" class="inline-flex items-center gap-2 text-limeAccent hover:text-white font-bold text-sm transition-colors">
                                 <span>معاينة الموقع المباشر</span>
                                 <i class="fa-solid fa-up-right-from-square text-xs"></i>
                             </a>
@@ -277,7 +334,7 @@
     </section>
 
     <!-- Workflow Section -->
-    <section id="workflow" class="py-24 bg-charcoal-800 border-y border-charcoal-700">
+    <section id="workflow" class="py-24 bg-charcoal-800/60 border-y border-charcoal-700/60 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
@@ -288,36 +345,31 @@
 
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
                 
-                <!-- Step 1 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-6 rounded-2xl space-y-4">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-6 rounded-2xl space-y-4 hover:border-limeAccent transition-colors">
                     <span class="text-limeAccent text-2xl font-black block">01</span>
                     <h3 class="text-lg font-bold text-white">فهم متطلباتك</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">مناقشة تفاصيل المشروع، نوع النشاط التجاري، والأهداف المطلوبة من الموقع.</p>
                 </div>
 
-                <!-- Step 2 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-6 rounded-2xl space-y-4">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-6 rounded-2xl space-y-4 hover:border-limeAccent transition-colors">
                     <span class="text-limeAccent text-2xl font-black block">02</span>
                     <h3 class="text-lg font-bold text-white">إنشاء الهيكل والواجهة</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">بناء الهيكل والتصميم باستخدام أدوات الذكاء الاصطناعي لضمان الأناقة والتناسق.</p>
                 </div>
 
-                <!-- Step 3 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-6 rounded-2xl space-y-4">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-6 rounded-2xl space-y-4 hover:border-limeAccent transition-colors">
                     <span class="text-limeAccent text-2xl font-black block">03</span>
                     <h3 class="text-lg font-bold text-white">التخصيص والتعديل</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">إضافة النصوص، الصور، الألوان، الميزات التفاعلية المخصصة لمشروعك.</p>
                 </div>
 
-                <!-- Step 4 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-6 rounded-2xl space-y-4">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-6 rounded-2xl space-y-4 hover:border-limeAccent transition-colors">
                     <span class="text-limeAccent text-2xl font-black block">04</span>
                     <h3 class="text-lg font-bold text-white">الاختبار والمراجعة</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">التأكد من التجاوب الكامل على كافة الشاشات والأجهزة وسرعة تحميل العناصر.</p>
                 </div>
 
-                <!-- Step 5 -->
-                <div class="bg-charcoal-900 border border-charcoal-700 p-6 rounded-2xl space-y-4">
+                <div onmouseenter="playHoverSound()" class="bg-charcoal-900/80 border border-charcoal-700 p-6 rounded-2xl space-y-4 hover:border-limeAccent transition-colors">
                     <span class="text-limeAccent text-2xl font-black block">05</span>
                     <h3 class="text-lg font-bold text-white">النشر المباشر</h3>
                     <p class="text-gray-400 text-xs leading-relaxed">رفع الكود النهائي وتسليم رابط مباشر يعمل بفعالية مشاركته مع عملائك.</p>
@@ -328,39 +380,97 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24 bg-charcoal-900">
-        <div class="max-w-4xl mx-auto px-6 text-center space-y-8">
+    <section id="contact" class="py-24 relative">
+        <div class="max-w-4xl mx-auto px-6 text-center space-y-8 relative z-10">
             
             <span class="text-limeAccent font-bold text-xs uppercase tracking-widest block">بدء العمل</span>
             <h2 class="text-3xl sm:text-5xl font-black text-white leading-tight">جاهز لبناء موقعك الجديد؟</h2>
             <p class="text-gray-400 text-base max-w-xl mx-auto">
-                إذا كنت ترغب في إنشاء موقع إلكتروني لمشروعك أو الاستفسار عن المزيد من التفاصيل، يسعدني التواصل معك ومناقشة فكرتك مباشرة.
+                إذا كنت ترغب في إنشاء موقع إلكتروني لمشروعك أو الاستفسار عن المزيد من التفاصيل، يسعدني التواصل معي بريدياً لمناقشة فكرتك مباشرة.
             </p>
 
-            <div class="pt-4 flex justify-center">
-                <!-- PLACEHOLDER_WHATSAPP_LINK -->
-                <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%AD%D8%B3%D9%86%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%8AA%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AA%D8%B5%D9%85%D9%8A%D9%85%20%D9%85%D9%88%D9%82%D8%B9" target="_blank" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-10 py-5 rounded-2xl text-lg transition-all shadow-xl hover:shadow-limeAccent/30 flex items-center gap-3">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span>تحدث معي مباشرة عبر واتساب</span>
+            <div class="pt-4 flex flex-col items-center justify-center gap-4">
+                <a href="mailto:aizenhassann@gmail.com?subject=استفسار%20عن%20تصميم%20موقع" onmouseenter="playHoverSound()" onclick="playClickSound()" class="bg-limeAccent hover:bg-limeAccent-hover text-charcoal-900 font-extrabold px-10 py-5 rounded-2xl text-lg transition-all shadow-xl hover:shadow-limeAccent/30 hover:scale-105 flex items-center gap-3">
+                    <i class="fa-solid fa-envelope text-2xl"></i>
+                    <span>راسلني عبر Gmail مباشرة</span>
                 </a>
+                <span class="text-gray-400 text-sm font-mono dir-ltr select-all">aizenhassann@gmail.com</span>
             </div>
 
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-charcoal-800 border-t border-charcoal-700 py-8 text-center text-xs text-gray-500">
+    <footer class="bg-charcoal-800/80 border-t border-charcoal-700 py-8 text-center text-xs text-gray-500 relative z-10">
         <div class="max-w-7xl mx-auto px-6 space-y-2">
             <p>جميع الحقوق محفوظة © 2026 - حسن | تصميم مواقع الويب</p>
             <p class="text-[11px] text-gray-600">هذا الموقع يمثل معرض أعمال شخصي؛ المشاريع الموضحة كأمثلة هي نماذج تجريبية للعرض فقط.</p>
         </div>
     </footer>
 
-    <!-- JavaScript Actions -->
+    <!-- JavaScript Actions & Web Audio API Sound Effects -->
     <script>
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+        }
+
+        // Web Audio API Sound Synthesizer (No external MP3 files needed)
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        // Subtle Hover Sound Effect
+        function playHoverSound() {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(420, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(800, audioCtx.currentTime + 0.05);
+
+                gain.gain.setValueAtTime(0.015, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } catch (e) {
+                // Audio Context safeguard
+            }
+        }
+
+        // Soft Click Sound Effect
+        function playClickSound() {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(120, audioCtx.currentTime + 0.08);
+
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                // Audio Context safeguard
+            }
         }
     </script>
 </body>
